@@ -14,7 +14,7 @@ module.exports = async (src, dir) => {
 }
 
 // url => image
-const urlToImg = (url, dir, callback) => {
+const urlToImg = promisify((url, dir, callback) => {
     const mod = /^https:/.test(url) ? https : http;
     const ext = path.extname(url);
     const file = path.join(dir, `${Date.now()}${ext}`);
@@ -22,11 +22,11 @@ const urlToImg = (url, dir, callback) => {
     mod.get(url, res => {
         res.pipe(fs.createWriteStream(file))
             .on('finish', () => {
-                callback && callback();
+                callback();
                 console.log(file);
             })
     })
-}
+})
 
 // base64 => image
 

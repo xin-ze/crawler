@@ -47,7 +47,7 @@ const puppeteerDefaultOptions = {
         })
         console.log(`get ${srcs.length} images, start download`);
 
-        srcs.forEach(src => {
+        srcs.forEach(async (src) => {
             // sleep ：低频 避免 出发反爬虫逻辑
             await page.waitFor(200);
             srcToImg(src, mn);
